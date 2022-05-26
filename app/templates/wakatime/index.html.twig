@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Wakatime{% endblock %}
+
+{% block body %}
+    <style>
+        .wrapper {
+            margin: 1em auto;
+            width: 95%;
+        }
+    </style>
+    <div class="wrapper">
+        <h3> Wakatime for {{ summaries.start | date }} To {{ summaries.end| date }} --  Total Time {{ summaries.cummulative_total.text }}</h3>
+        <table class="table table-striped table-hover table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">cummulative Time</th>
+                <th scope="col">Langues</th>
+                <th scope="col">Projects</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for data in summaries.data %}
+            <tr>
+                <th scope="col">{{ data.grand_total.text }}</th>
+                <th scope="col">
+                    <table>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Time Spent</th>
+                            <th scope="col">Percentage</th>
+                        </tr>
+                        {% for languages in data.languages  %}
+                            <tr>
+                                <td >{{ languages.name }}</td>
+                                <td > {{ languages.text }}</td>
+                                <td >{{ languages.percent }}%</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+
+                </th>
+                <th scope="col">
+                    <table>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Time Spent</th>
+                            <th scope="col">Percentage</th>
+                        </tr>
+                        {% for languages in data.projects  %}
+                            <tr>
+                                <td >{{ languages.name }}</td>
+                                <td > {{ languages.text }}</td>
+                                <td >{{ languages.percent }}%</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </th>
+            </tr>
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+    </div>
+{% endblock %}
